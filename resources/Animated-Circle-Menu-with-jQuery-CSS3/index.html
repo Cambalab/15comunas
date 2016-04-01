@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Animated Circle Menu Demo</title>
+<style>
+html,
+body { height: 100%; }
+
+body {
+  margin: 0;
+  background: linear-gradient(#eeeeee, #cccccc);
+  overflow: hidden;
+}
+
+.selector {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  margin-top: -150px;
+  margin-left: -150px;
+}
+
+.selector,
+.selector button {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+}
+
+.selector button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: #428bca;
+  border-radius: 50%;
+  border: 0;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  transition: all .1s;
+}
+
+.selector button:hover { background: #3071a9; }
+
+.selector button:focus { outline: none; }
+
+.selector ul {
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  top: -20px;
+  right: -20px;
+  bottom: -20px;
+  left: -20px;
+}
+
+.selector li {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  margin: 0 50%;
+  -webkit-transform: rotate(-30deg);
+  transition: all 0.8s ease-in-out;
+}
+
+.selector li input { display: none; }
+
+.selector li input + label {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 30px;
+  height: 30px;
+  line-height: 1px;
+  margin-left: 0;
+  background: #fff;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: none;
+  opacity: 0;
+  transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+}
+
+.selector li input + label:hover { background: #f0f0f0; }
+
+.selector li input:checked + label {
+  background: #5cb85c;
+  color: white;
+}
+
+.selector li input:checked + label:hover { background: #449d44; }
+
+.selector.open li input + label {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  margin-left: -40px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<h1 align="center">Animated Circle Menu Demo</h1>
+<div class='selector'>
+  <ul>
+    <li>
+      <input id='p1' type='radio' name="producto">
+      <label for='p1'>Pan</label>
+    </li>
+    <li>
+      <input id='p2' type='radio' name="producto">
+      <label for='p2'>Azúcar</label>
+    </li>
+    <li>
+      <input id='c2' type='radio' name="producto">
+      <label for='c2'>Fideos</label>
+    </li>
+    <li>
+      <input id='c3' type='radio' name="producto">
+      <label for='c3'>Papa</label>
+    </li>
+    <li>
+      <input id='c4' type='radio' name="producto">
+      <label for='c4'>Huevos</label>
+    </li>
+    <li>
+      <input id='c5' type='radio' name="producto">
+      <label for='c5'>Leche</label>
+    </li>
+    <li>
+      <input id='c6' type='radio' name="producto">
+      <label for='c6'>Aceite</label>
+    </li>
+    <li>
+      <input id='c7' type='radio' name="producto">
+      <label for='c7'>Yerba</label>
+    </li>
+    <li>
+      <input id='c8' type='radio' name="producto">
+      <label for='c8'>Sal</label>
+    </li>
+    <li>
+      <input id='c8' type='radio' name="producto">
+      <label for='c8'>Harina</label>
+    </li>
+    <li>
+      <input id='c8' type='radio' name="producto">
+      <label for='c8'>Queso Duro</label>
+    </li>
+    <li>
+      <input id='c8' type='radio' name="producto">
+      <label for='c8'>Queso Blando</label>
+    </li>
+    <li>
+      <input id='c8' type='radio' name="producto">
+      <label for='c8'>Carne (Tira de asado)</label>
+    </li>
+    <li>
+      <input id='c8' type='radio' name="producto">
+      <label for='c8'>Pollo</label>
+    </li>
+    <li>
+      <input id='c8' type='radio' name="producto">
+      <label for='c8'>Manzana</label>
+    </li>
+  </ul>
+  <button>
+      <h3>Comuna 15</h3>
+      <h5>4,3% +</h5>
+  </button>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../resources/15comunas.js"></script>
+
+<script>var nbOptions = 8;
+var angleStart = -30;
+
+// jquery rotate animation
+function rotate(li,d) {
+    $({d:angleStart}).animate({d:d}, {
+        step: function(now) {
+            $(li)
+               .css({ transform: 'rotate('+now+'deg)' })
+               .find('label')
+                  .css({ transform: 'rotate('+(-now)+'deg)' });
+        }, duration: 0
+    });
+}
+
+// show / hide the options
+function toggleOptions(s) {
+    $(s).toggleClass('open');
+    var li = $(s).find('li');
+    var deg = $(s).hasClass('half') ? 180/(li.length-1) : 360/li.length;
+    for(var i=0; i<li.length; i++) {
+        var d = $(s).hasClass('half') ? (i*deg)-90 : i*deg;
+        $(s).hasClass('open') ? rotate(li[i],d) : rotate(li[i],angleStart);
+    }
+}
+
+$('.selector button').click(function(e) {
+    toggleOptions($(this).parent());
+});
+
+setTimeout(function() { toggleOptions('.selector'); }, 100);//@ sourceURL=pen.js
+</script>
+
+</body>
+</html>
