@@ -15,6 +15,7 @@
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="/bower_components/circliful/css/circliful.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
@@ -28,79 +29,94 @@
     <![endif]-->
 
     <div class="container">
+      <h1>15 Comunas</h1>
+      <h2>15 productos</h2>
+      <p>Compará los aumentos de la canasta familiar de los últimos meses en cada comuna.</p>
       <div class="map">Alternative content</div>
     </div>
 
 
     <div class='selector'>
+      <div class="overflow"></div>
       <ul>
         <li>
           <input id='p1' type='radio' name="producto">
-          <label for='p1'>Pan</label>
+          <label for='p1'><img src="images/icons/1.png" alt="" /></label>
         </li>
         <li>
           <input id='p2' type='radio' name="producto">
-          <label for='p2'>Azúcar</label>
+          <label for='p2'><img src="images/icons/2.png" alt="" /></label>
         </li>
         <li>
           <input id='c2' type='radio' name="producto">
-          <label for='c2'>Fideos</label>
+          <label for='c2'><img src="images/icons/3.png" alt="" /></label>
         </li>
         <li>
           <input id='c3' type='radio' name="producto">
-          <label for='c3'>Papa</label>
+          <label for='c3'><img src="images/icons/4.png" alt="" /></label>
         </li>
         <li>
           <input id='c4' type='radio' name="producto">
-          <label for='c4'>Huevos</label>
+          <label for='c4'><img src="images/icons/5.png" alt="" /></label>
         </li>
         <li>
           <input id='c5' type='radio' name="producto">
-          <label for='c5'>Leche</label>
+          <label for='c5'><img src="images/icons/6.png" alt="" /></label>
         </li>
         <li>
           <input id='c6' type='radio' name="producto">
-          <label for='c6'>Aceite</label>
+          <label for='c6'><img src="images/icons/7.png" alt="" /></label>
         </li>
         <li>
           <input id='c7' type='radio' name="producto">
-          <label for='c7'>Yerba</label>
+          <label for='c7'><img src="images/icons/48.png" alt="" /></label>
+        </li>
+        <li>
+          <input id='c14' type='radio' name="producto">
+          <label for='c14'><img src="images/icons/9.png" alt="" /></label>
         </li>
         <li>
           <input id='c8' type='radio' name="producto">
-          <label for='c8'>Sal</label>
+          <label for='c8'><img src="images/icons/195.png" alt="" /></label>
         </li>
         <li>
-          <input id='c8' type='radio' name="producto">
-          <label for='c8'>Harina</label>
+          <input id='c9' type='radio' name="producto">
+          <label for='c9'><img src="images/icons/11.png" alt="" /></label>
         </li>
         <li>
-          <input id='c8' type='radio' name="producto">
-          <label for='c8'>Queso Duro</label>
+          <input id='c10' type='radio' name="producto">
+          <label for='c10'><img src="images/icons/57.png" alt="" /></label>
         </li>
         <li>
-          <input id='c8' type='radio' name="producto">
-          <label for='c8'>Queso Blando</label>
+          <input id='c11' type='radio' name="producto">
+          <label for='c11'><img src="images/icons/66.png" alt="" /></label>
         </li>
         <li>
-          <input id='c8' type='radio' name="producto">
-          <label for='c8'>Carne (Tira de asado)</label>
+          <input id='c12' type='radio' name="producto">
+          <label for='c12'><img src="images/icons/59.png" alt="" /></label>
         </li>
         <li>
-          <input id='c8' type='radio' name="producto">
-          <label for='c8'>Pollo</label>
-        </li>
-        <li>
-          <input id='c8' type='radio' name="producto">
-          <label for='c8'>Manzana</label>
+          <input id='c13' type='radio' name="producto">
+          <label for='c13'><img src="images/icons/61.png" alt="" /></label>
         </li>
       </ul>
       <button>
-          <h3>Comuna 15</h3>
-          <h5>4,3% +</h5>
+          <h5>Comuna 15</h5>
+          <h3>43%</h3>
       </button>
       <div class="detail-product">
-        detalle de producto
+        <div id="graf"></div>
+        <div id="graf1"></div>
+        <div id="graf2"></div>
+        <h4>Pan</h4>
+        <div class="graf">
+          <span class="graf-label">Diciembre (11%)</span>
+          <span class="graf-label graf-label-1">Enero (6%)</span>
+          <span class="graf-label graf-label-2">Febrero (7%)</span>
+        </div>
+        <span class="fa fa-facebook"></span>
+        <span class="fa fa-twitter"></span>
+        <span class="fa fa-google-plus"></span>
       </div>
     </div>
 
@@ -137,6 +153,7 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
     <script src="/bower_components/raphael/raphael-min.js"></script>
     <script src="scripts/vendor/jquery.mapael.min.js"></script>
+    <script src="/bower_components/circliful/js/circliful.min.js"></script>
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->

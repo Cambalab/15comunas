@@ -14,32 +14,39 @@ function rotate(li,d) {
 
 // show / hide the options
 function toggleOptions(s) {
-
+    var open = false;
     if($(s).hasClass('open')) {
       $(s).removeClass('detail')
-      window.setTimeout(function(){$(s).removeClass('open')}, 800);
+      open = true;
+      $(".svg-container").empty();
+      window.setTimeout(function(){
+        $(s).removeClass('open')
+        open = false;
+      }, 400);
     } else {
       $(s).addClass('open');
     }
 
     $('input[type="radio"]').prop('checked', false);
+
     var li = $(s).find('li');
     var deg = $(s).hasClass('half') ? 180/(li.length-1) : 360/li.length;
     for(var i=0; i<li.length; i++) {
         var d = $(s).hasClass('half') ? (i*deg)-90 : i*deg;
-        $(s).hasClass('open') ? rotate(li[i],d) : rotate(li[i],angleStart);
+        open ? rotate(li[i],angleStart) : rotate(li[i],d);
     }
 }
 
-$('.selector button').click(function(e) {
+$('.selector button, .selector .overflow').click(function(e) {
     toggleOptions($(this).parent());
 });
 
 $('label').on('click', function(){
   $('.selector').addClass('detail');
+  grafs();
 });
 
-//setTimeout(function() { toggleOptions('.selector'); }, 100);//@ sourceURL=pen.js
+setTimeout(function() { toggleOptions('.selector'); }, 100);//@ sourceURL=pen.js
 
 var datosProductos = [
   {nombre:"Pan", precios:[15,20,25]},
@@ -78,7 +85,7 @@ $(".container").mapael({
               "font-size" : 50
       			}
       			, attrsHover : {
-      				fill : "#999"
+      				fill : "#fff"
       			}
       		}
       	},
@@ -140,3 +147,33 @@ $(".container").mapael({
   			}
   		}
 });
+
+function grafs() {
+  $(".svg-container").empty();
+
+  $("#graf").circliful({
+    animationStep: 7,
+    foregroundColor: '#5CB85C',
+    backgroundColor: '#fff',
+    foregroundBorderWidth: 5,
+    backgroundBorderWidth: 0,
+    percent: 71,
+    backgroundBorderWidth: 9
+  });
+  $("#graf1").circliful({
+    animationStep: 5,
+    foregroundColor: '#4E864E',
+    foregroundBorderWidth: 5,
+    backgroundBorderWidth: 0,
+    percent: 61
+  });
+  $("#graf2").circliful({
+    animationStep: 3,
+    foregroundColor: '#354F35',
+    foregroundBorderWidth: 5,
+    backgroundBorderWidth: 0,
+    percent: 47,
+    text: 'de aumento en el último mes'
+  });
+
+};
