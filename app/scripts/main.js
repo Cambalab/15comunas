@@ -1,4 +1,5 @@
 var angleStart = -30;
+var comunaActiva = {};
 
 // jquery rotate animation
 function rotate(li,d) {
@@ -13,143 +14,56 @@ function rotate(li,d) {
 }
 
 // show / hide the options
-function toggleOptions(s) {
-    var open = false;
-    if($(s).hasClass('open')) {
-      $(s).removeClass('detail')
-      open = true;
-      $(".svg-container").empty();
-      window.setTimeout(function(){
-        $(s).removeClass('open')
-        open = false;
-      }, 400);
-    } else {
-      $(s).addClass('open');
-    }
+function toggleOptions(id) {
+  var s = '.selector'
+  var open = false;
+  if($(s).hasClass('open')) {
+    $(s).removeClass('detail')
+    open = true;
+    $(".svg-container").empty();
+    window.setTimeout(function(){
+      $(s).removeClass('open')
+      open = false;
+    }, 400);
+  } else {
+    $.each(datosProductos, function(index, value){
+      if(datosProductos[index].id === id) {
+        comunaActiva = datosProductos[index];
+        $('#selector-titulo').text(comunaActiva.titulo);
+        $('#selector-numero').text(comunaActiva.numero);
+      }
+    });
+    $(s).addClass('open');
+  }
 
-    $('input[type="radio"]').prop('checked', false);
+  $('input[type="radio"]').prop('checked', false);
 
-    var li = $(s).find('li');
-    var deg = $(s).hasClass('half') ? 180/(li.length-1) : 360/li.length;
-    for(var i=0; i<li.length; i++) {
-        var d = $(s).hasClass('half') ? (i*deg)-90 : i*deg;
-        open ? rotate(li[i],angleStart) : rotate(li[i],d);
-    }
+  var li = $(s).find('li');
+  var deg = $(s).hasClass('half') ? 180/(li.length-1) : 360/li.length;
+  for(var i=0; i<li.length; i++) {
+      var d = $(s).hasClass('half') ? (i*deg)-90 : i*deg;
+      open ? rotate(li[i],angleStart) : rotate(li[i],d);
+  }
 }
-
-$('.selector button, .selector .overflow').click(function(e) {
-    toggleOptions($(this).parent());
-});
-
-$('label').on('click', function(){
-  $('.selector').addClass('detail');
-  grafs();
-});
-
-setTimeout(function() { toggleOptions('.selector'); }, 100);//@ sourceURL=pen.js
-
-var datosProductos = [
-  {nombre:"Pan", precios:[15,20,25]},
-  {nombre:"Azúcar", precios:[15,20,25]},
-  {nombre:"Fideos", precios:[15,20,25]},
-  {nombre:"Papa", precios:[15,20,25]},
-  {nombre:"Huevos", precios:[15,20,25]},
-  {nombre:"Leche", precios:[15,20,25]},
-  {nombre:"Aceite", precios:[15,20,25]},
-  {nombre:"Yerba", precios:[15,20,25]},
-  {nombre:"Sal", precios:[15,20,25]},
-  {nombre:"Harina", precios:[15,20,25]},
-  {nombre:"Queso Duro", precios:[15,20,25]},
-  {nombre:"Queso Blando", precios:[15,20,25]},
-  {nombre:"Asado", precios:[15,20,25]},
-  {nombre:"Pollo", precios:[15,20,25]},
-  {nombre:"Manzana", precios:[15,20,25]}
-];
-
-$(".container").mapael({
-    map : {
-      name : "quincecomunas",
-      // Set default plots and areas style
-       defaultArea: {
-      		attrs : {
-      			fill : "#666",
-            stroke: "#ccc",
-            "stroke-width": 4
-      		}
-      		, attrsHover : {
-      			fill: "#999"
-      		}
-      		, text : {
-      			attrs : {
-      				fill : "#ccc",
-              "font-size" : 50
-      			}
-      			, attrsHover : {
-      				fill : "#fff"
-      			}
-      		}
-      	},
-        afterInit : function($self, paper, areas, plots, options) {
-          $.each(areas,function(index,elem){
-            $(elem.mapElem.node)
-                        .on('click', function() {
-                          toggleOptions('.selector');
-                    });
-            }
-          )
-        }
-      },
-      areas: {
-  			"comuna1" : {
-  				text : {content : "1"}
-  			},
-        "comuna2" : {
-  				text : {content : "2"}
-  			},
-        "comuna3" : {
-  				text : {content : "3"}
-  			},
-        "comuna4" : {
-  				text : {content : "4"}
-  			},
-        "comuna5" : {
-  				text : {content : "5"}
-  			},
-        "comuna6" : {
-  				text : {content : "6"}
-  			},
-        "comuna7" : {
-  				text : {content : "7"}
-  			},
-        "comuna8" : {
-  				text : {content : "8"}
-  			},
-        "comuna9" : {
-  				text : {content : "9"}
-  			},
-        "comuna10" : {
-  				text : {content : "10"}
-  			},
-        "comuna11" : {
-  				text : {content : "11"}
-  			},
-        "comuna12" : {
-  				text : {content : "12"}
-  			},
-        "comuna13" : {
-  				text : {content : "13"}
-  			},
-        "comuna14" : {
-  				text : {content : "14"}
-  			},
-        "comuna15" : {
-  				text : {content : "15"}
-  			}
-  		}
-});
 
 function grafs() {
   $(".svg-container").empty();
+  var precio0, precio1, precio2 = 0;
+  var titulo = '';
+
+
+  $.each(comunaActiva.precios, function(index, value){
+    if($('input[name=producto]:checked').val() == index) {
+      titulo = comunaActiva.precios[index].nombre;
+      precio0 = comunaActiva.precios[index].precios[0];
+      precio1 = comunaActiva.precios[index].precios[1];
+      precio2 = comunaActiva.precios[index].precios[2];
+      $('#detail-product-nombre').text(titulo);
+      $('#graf-label-0').text(precio0.toFixed(2));
+      $('#graf-label-1').text(precio1.toFixed(2));
+      $('#graf-label-2').text(precio2.toFixed(2));
+    }
+  });
 
   $("#graf").circliful({
     animationStep: 7,
@@ -157,7 +71,7 @@ function grafs() {
     backgroundColor: '#fff',
     foregroundBorderWidth: 5,
     backgroundBorderWidth: 0,
-    percent: 71,
+    percent: precio2,
     backgroundBorderWidth: 9
   });
   $("#graf1").circliful({
@@ -165,15 +79,29 @@ function grafs() {
     foregroundColor: '#4E864E',
     foregroundBorderWidth: 5,
     backgroundBorderWidth: 0,
-    percent: 61
+    percent: precio1
   });
   $("#graf2").circliful({
     animationStep: 3,
     foregroundColor: '#354F35',
     foregroundBorderWidth: 5,
     backgroundBorderWidth: 0,
-    percent: 47,
+    percent: precio0,
     text: 'de aumento en el último mes'
   });
 
 };
+
+
+$('.selector button, .selector .overflow').click(function(e) {
+    toggleOptions($(this).parent());
+});
+
+$('input[name=producto]').on('change', function(){
+  $('.selector').addClass('detail');
+  grafs();
+});
+
+$('path').on('click', function(){
+  toggleOptions($(this).attr('id'));
+});
